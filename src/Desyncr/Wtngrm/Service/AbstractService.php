@@ -1,6 +1,6 @@
 <?php
 namespace Desyncr\Wtngrm\Service;
-use \Desyncr\Wtngrm\Job\AbstractJob;
+use \Desyncr\Wtngrm\Job\BaseJob;
 
 abstract class AbstractService implements ServiceInterface {
     protected $jobs = array();
@@ -14,7 +14,7 @@ abstract class AbstractService implements ServiceInterface {
     public function add($key, $job) {
 
         if (!is_object($job)) {
-            $job = new AbstractJob($job);
+            $job = new BaseJob($job);
         }
         $job->setId($key);
 
