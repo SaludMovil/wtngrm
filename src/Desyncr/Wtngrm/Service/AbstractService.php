@@ -11,6 +11,12 @@ abstract class AbstractService implements ServiceInterface {
         }
     }
 
+    public function getOption($option) {
+        if (isset($this->$option)) {
+            return $this->$option;
+        }
+    }
+
     public function add($key, $job) {
 
         if (!is_object($job)) {
