@@ -2,5 +2,5 @@
 namespace Desyncr\Wtngrm\Worker;
 
 interface WorkerInterface {
-    public static function execute($job);
+    public function execute($job, $sm);
 } 
