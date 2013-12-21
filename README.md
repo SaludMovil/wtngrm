@@ -1,5 +1,7 @@
 ## Wtngrm
 ---
+**master:** [![Build Status master](https://secure.travis-ci.org/desyncr/wtngrm?branch=master)](http://travis-ci.org/desyncr/wtngrm) |
+**development:** [![Build Status development](https://secure.travis-ci.org/desyncr/wtngrm?branch=development)](http://travis-ci.org/desyncr/wtngrm)
 
 Zend2 base module for various queue job services. Currently supporting [Gearman][4] and [Beanstalk][5].
 
