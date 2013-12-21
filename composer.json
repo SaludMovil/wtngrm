@@ -22,8 +22,7 @@
         "zendframework/zendframework": "2.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
-        "whatthejeff/nyancat-phpunit-resultprinter": "~1.2"
+        "phpunit/phpunit": "*"
     },
     "autoload": {
         "psr-0": {
