@@ -2,7 +2,9 @@
 namespace Desyncr\Wtngrm\Service;
 
 class ConcreteService extends AbstractService {
-    public function dispatch() {}
+    public function dispatch() {
+        return count($this->jobs);
+    }
 }
 
 /**
@@ -97,15 +99,48 @@ class AbstractServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers Desyncr\Wtngrm\Service\AbstractService::getOptions
+     * @todo   Implement testGetOptions().
+     */
+    public function testGetOptions()
+    {
+        $options = array(
+            'servers' => array(
+                'frontend' => array(
+                    array('host' => '127.0.0.1', 'port' => 80)
+                )
+            )
+        );
+
+        $this->object->setOptions($options);
+
+        $this->assertEquals($this->object->getOption('servers'), $options['servers']);
+    }
+
+    /**
      * @covers Desyncr\Wtngrm\Service\AbstractService::add
      * @todo   Implement testAdd().
      */
     public function testAdd()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $key = 'job.service.key';
+        $job = array();
+        $jobObject = $this->object->add($key, $job);
+
+        $this->assertEquals('Desyncr\Wtngrm\Job\BaseJob', get_class($jobObject));
+        $this->assertEquals($jobObject->getId(), $key);
+    }
+
+    /**
+     * @covers Desyncr\Wtngrm\Service\AbstractService::add
+     * @todo   Implement testAdd().
+     */
+    public function testAddInvalidJob()
+    {
+        $key = 'job.service.key';
+        $job = new \StdClass;
+        $this->setExpectedException('Exception');
+        $this->object->add($key, $job);
     }
 
     /**
@@ -115,8 +150,10 @@ class AbstractServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testDispatch()
     {
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $key = 'job.service.key';
+        $job = array();
+        $this->object->add($key, $job);
+
+        $this->assertEquals(1, $this->object->dispatch());
     }
 }

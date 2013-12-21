@@ -22,12 +22,15 @@ abstract class AbstractService implements ServiceInterface {
         if (!is_object($job)) {
             $job = new BaseJob($job);
         }
-        $job->setId($key);
 
         if (!$job instanceOf \Desyncr\Wtngrm\Job\JobInterface) {
             throw new \Exception('Job must implement JobInterface');
         }
 
+        $job->setId($key);
+
         $this->jobs[] = $job;
+
+        return $job;
     }
 }
