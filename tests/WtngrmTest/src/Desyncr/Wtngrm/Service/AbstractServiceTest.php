@@ -99,10 +99,10 @@ class AbstractServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Desyncr\Wtngrm\Service\AbstractService::getOptions
+     * @covers Desyncr\Wtngrm\Service\AbstractService::getOption
      * @todo   Implement testGetOptions().
      */
-    public function testGetOptions()
+    public function testGetOption()
     {
         $options = array(
             'servers' => array(
