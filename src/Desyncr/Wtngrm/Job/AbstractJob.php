@@ -2,11 +2,13 @@
 namespace Desyncr\Wtngrm\Job;
 
 abstract class AbstractJob implements JobInterface {
-    public function __construct($arr = null) {
-        if (is_array($arr)) {
-            foreach($arr as $k => $v) {
-                $this->set($k, $v);
-            }
+    protected $id = null;
+
+    public function __construct(Array $arr = null) {
+        if (is_null($arr)) return;
+
+        foreach($arr as $k => $v) {
+            $this->set($k, $v);
         }
     }
 
