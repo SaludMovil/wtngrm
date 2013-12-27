@@ -4,6 +4,7 @@ use \Desyncr\Wtngrm\Job\BaseJob;
 
 abstract class AbstractService implements ServiceInterface {
     protected $jobs = array();
+    protected $targets = array();
 
     public function setOptions($options) {
         foreach ($options as $k => $v) {
@@ -17,7 +18,7 @@ abstract class AbstractService implements ServiceInterface {
         }
     }
 
-    public function add($key, $job) {
+    public function add($key, $job, $target) {
 
         if (!is_object($job)) {
             $job = new BaseJob($job);
