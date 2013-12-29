@@ -18,7 +18,7 @@ abstract class AbstractService implements ServiceInterface {
         }
     }
 
-    public function add($key, $job, $target) {
+    public function add($key, $job, $target = null) {
 
         if (!is_object($job)) {
             $job = new BaseJob($job);
