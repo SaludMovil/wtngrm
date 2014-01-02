@@ -2,5 +2,7 @@
 namespace Desyncr\Wtngrm\Worker;
 
 interface WorkerInterface {
-    public function execute($job, $sm);
+    public function setUp($sm, $job);
+    public function execute($job);
+    public function tearDown();
 } 
