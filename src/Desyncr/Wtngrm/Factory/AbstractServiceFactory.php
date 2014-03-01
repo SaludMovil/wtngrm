@@ -37,6 +37,11 @@ abstract class AbstractServiceFactory implements FactoryInterface
     protected $config = null;
 
     /**
+     * @var array
+     */
+    protected $options = null;
+
+    /**
      * @var string
      */
     protected $serviceId = 'wtngrm';
@@ -84,6 +89,32 @@ abstract class AbstractServiceFactory implements FactoryInterface
 
         return $this->config
             = isset($configuration[$service]) ? $configuration[$service] : array();
+    }
+
+    /**
+     * setAdapterConfiguration
+     *
+     * @param Array $configuration Configuration
+     *
+     * @return mixed
+     */
+    public function setAdapterConfiguration(Array $configuration)
+    {
+        $this->options = $configuration;
+    }
+
+    /**
+     * getAdapterConfiguration
+     *
+     * @param String $adapter Adapter id
+     *
+     * @return mixed
+     */
+    public function getAdapterConfiguration($adapter)
+    {
+        $adapter .= '-adapter';
+        $config = $this->getServiceConfiguration();
+        return isset($config[$adapter]) ? $config[$adapter] : array();
     }
 
     /**

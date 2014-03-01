@@ -25,7 +25,8 @@ use Desyncr\Wtngrm\Job\JobInterface;
  * @license  https://www.gnu.org/licenses/gpl.html GPL-3.0+
  * @link     https://github.com/desyncr
  */
-abstract class AbstractService implements ServiceInterface
+abstract class AbstractService implements
+    ServiceInterface
 {
     /**
      * @var array
@@ -56,27 +57,26 @@ abstract class AbstractService implements ServiceInterface
      *
      * @param String $option Option key
      *
-     * @return mixed|null
+     * @return null
      */
     public function getOption($option)
     {
         if (isset($this->$option)) {
             return $this->$option;
         }
-        return null;
     }
 
     /**
-     * add
+     * Adds a job to be processed
      *
-     * @param String       $key    Job id
-     * @param Object|array $job    Job object or array
-     * @param null         $target Unused
+     * @param String       $key    Job key
+     * @param array|Object $job    Job object
+     * @param null         $target Target (unused)
      *
      * @return mixed
      * @throws \Exception
      */
-    public function add($key, $job, $target = null)
+    public function addJob($key, $job, $target = null)
     {
         if (!is_object($job)) {
             $job = new BaseJob($job);
@@ -88,7 +88,26 @@ abstract class AbstractService implements ServiceInterface
 
         $job->setId($key);
         $this->jobs[] = $job;
-
         return $job;
+    }
+
+    /**
+     * Add a job to be processed.
+     *
+     * To be deprecated. Use addJob.
+     */
+    public function add($key, $job, $target = null)
+    {
+        return $this->addJob($key, $job, $target);
+    }
+
+    /**
+     * getJobs
+     *
+     * @return Array
+     */
+    public function getJobs()
+    {
+        return $this->jobs;
     }
 }
