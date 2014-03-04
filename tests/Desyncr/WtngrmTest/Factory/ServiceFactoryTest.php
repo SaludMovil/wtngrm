@@ -13,7 +13,9 @@
  */
 namespace Desyncr\WtngrmTest\Factory;
 
+use Desyncr\Wtngrm\Factory\ServiceFactory;
 use Desyncr\Wtngrm\Options\OptionsBase;
+use Desyncr\Wtngrm\Service\ServiceBase;
 
 /**
  * Class ServiceFactoryTest
@@ -27,6 +29,70 @@ use Desyncr\Wtngrm\Options\OptionsBase;
 class ServiceFactoryTest extends ServiceFactoryTestBase
 {
     /**
+     * testInstanceService
+     *
+     * @return mixed
+     */
+    public function testInstanceService()
+    {
+        $service = new ServiceBase();
+        $class = 'Desyncr\Wtngrm\Service\ServiceBase';
+        $this->assertInstanceOf($class, $service);
+
+        $service = $this->getMock($class);
+        $this->assertInstanceOf($class, $service);
+
+        $abstract = 'Desyncr\Wtngrm\Service\AbstractService';
+        $interface = 'Desyncr\Wtngrm\Service\ServiceInterface';
+        $service = $this->getMockForAbstractClass($abstract);
+        $this->assertTrue(is_a($service, $interface));
+    }
+
+    /**
+     * testInstanceFactory
+     *
+     * @return mixed
+     */
+    public function testInstanceFactory()
+    {
+        $factory = new ServiceFactory();
+        $class = 'Desyncr\Wtngrm\Factory\ServiceFactory';
+        $this->assertInstanceOf($class, $factory);
+
+        $factory = $this->getMock($class);
+        $this->assertInstanceOf($class, $factory);
+
+        $factory = $this->getServiceManager()->get(
+            'Desyncr\Wtngrm\Service\ServiceBase'
+        );
+        $this->assertNotNull($factory);
+    }
+
+    /**
+     * testInstanceFactoryMock
+     *
+     * @return mixed
+     */
+    public function testInstanceFactoryMock()
+    {
+        $serviceManagerMock = $this->getServiceManagerMock();
+        $serviceManagerMock->setFactory(
+          'Desyncr\Wtngrm\Service\ServiceBase',
+            'Desyncr\Wtngrm\Factory\ServiceFactory'
+        );
+        $serviceManagerMock->expects($this->at(1))
+            ->method('get')
+            ->with(
+                $this->equalTo('Desyncr\Wtngrm\Factory\ServiceFactory')
+            )
+            ->will($this->returnValue(new ServiceBase()));
+
+        $serviceManagerMock->get(
+            'Desyncr\Wtngrm\Service\ServiceBase'
+        );
+    }
+
+    /**
      * testCreateService
      *
      * @covers Desyncr\Wtngrm\Factory\ServiceFactory::createService
@@ -36,6 +102,7 @@ class ServiceFactoryTest extends ServiceFactoryTestBase
     public function testCreateService()
     {
         $optionBase = new OptionsBase();
+        /** @var \Zend\ServiceManager\ServiceLocatorInterface $serviceManagerMock */
         $serviceManagerMock = $this->getServiceManagerMock();
 
         $serviceManagerMock->expects($this->once())
@@ -49,7 +116,7 @@ class ServiceFactoryTest extends ServiceFactoryTestBase
                 )
             );
 
-        $result = $this->getObject()->createService($serviceManagerMock);
+        $result = $this->getObject()->createService($this->getServiceManager());
         $this->assertInstanceOf('Desyncr\Wtngrm\Service\ServiceBase', $result);
     }
 

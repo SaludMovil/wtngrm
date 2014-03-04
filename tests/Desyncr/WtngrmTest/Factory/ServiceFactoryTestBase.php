@@ -29,12 +29,12 @@ class ServiceFactoryTestBase extends AbstractTest
     /**
      * getObject
      *
-     * @return Object
+     * @return \Desyncr\Wtngrm\Factory\ServiceFactory
      */
     public function getObject()
     {
         return $this->object ?:
-            $this->object = $this->getMockForAbstractClass(
+            $this->object = $this->getMock(
                 'Desyncr\Wtngrm\Factory\ServiceFactory'
             );
     }
@@ -42,7 +42,7 @@ class ServiceFactoryTestBase extends AbstractTest
     /**
      * getBasicConfiguration
      *
-     * @return mixed
+     * @return Array
      */
     public function getBasicConfiguration()
     {

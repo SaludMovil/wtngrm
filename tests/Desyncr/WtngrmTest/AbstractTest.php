@@ -77,13 +77,13 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      *
      * @param array $methods Methods to mock
      *
-     * @return Object
+     * @return \PHPUnit_Framework_MockObject_MockObject
      */
     protected function getServiceManagerMock(array $methods = null)
     {
         $methodsMock = $methods ?: array('get', 'has');
         return $this->getMock(
-            'Zend\ServiceManager\ServiceLocatorInterface',
+            'Zend\ServiceManager\ServiceManager',
             $methodsMock
         );
     }

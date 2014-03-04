@@ -87,6 +87,10 @@ class AbstractServiceTest extends AbstractTest
         $this->getObject()->setOptions(
             $optionBaseMock
         );
+        $this->assertInstanceOf(
+            'Desyncr\Wtngrm\Options\OptionsBase',
+            $this->getObject()->getOptions()
+        );
         $this->getObject()->getOptions()->setFromArray($options);
 
         $this->assertEquals(
@@ -159,6 +163,10 @@ class AbstractServiceTest extends AbstractTest
 
         $this->getObject()->setOptions($optionBaseMock);
 
+        $this->assertInstanceOf(
+            'Desyncr\Wtngrm\Options\OptionsBase',
+            $this->getObject()->getOptions()
+        );
         $servers = $this->getObject()->getOptions()->getServers();
         $this->assertEquals(
             $options['servers']['frontend'],
@@ -198,6 +206,10 @@ class AbstractServiceTest extends AbstractTest
 
         $this->getObject()->setOptions($optionBaseMock);
 
+        $this->assertInstanceOf(
+            'Desyncr\Wtngrm\Options\OptionsBase',
+            $this->getObject()->getOptions()
+        );
         $this->getObject()->getOptions()->setFromArray($options);
 
         $this->assertEquals(

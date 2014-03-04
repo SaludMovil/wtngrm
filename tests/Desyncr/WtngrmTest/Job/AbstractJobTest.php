@@ -13,6 +13,7 @@
  */
 namespace Desyncr\WtngrmTest\Job;
 
+use Desyncr\Wtngrm\Job\JobBase;
 use Desyncr\WtngrmTest\AbstractTest;
 
 /**
@@ -49,8 +50,9 @@ class AbstractJobTest extends AbstractTest
     public function testSet()
     {
         $val = 'test value';
-        $this->object->set('key', $val);
-        $this->assertEquals($val, $this->object->key);
+        $object = new JobBase();
+        $object->set('key', $val);
+        $this->assertEquals($val, $object->get('key'));
     }
 
     /**
@@ -62,6 +64,7 @@ class AbstractJobTest extends AbstractTest
      */
     public function testSetArray()
     {
+        $this->setObject(new JobBase());
         $val = array('key' => 'value');
         $this->object->set('array', $val);
         $this->assertEquals($val, $this->object->array);

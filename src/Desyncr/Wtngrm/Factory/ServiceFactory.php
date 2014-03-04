@@ -33,7 +33,7 @@ class ServiceFactory implements FactoryInterface
      *
      * @param ServiceLocatorInterface $serviceLocator Service Manager
      *
-     * @return array
+     * @return ServiceBase
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
