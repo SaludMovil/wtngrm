@@ -13,7 +13,6 @@
  */
 namespace Desyncr\Wtngrm\Worker;
 
-use Desyncr\Wtngrm\Job\JobInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -57,11 +56,11 @@ abstract class AbstractWorker implements
     /**
      * execute
      *
-     * @param JobInterface $job Job object
+     * @param Object $job Job object
      *
      * @return mixed
      */
-    abstract function execute(JobInterface $job);
+    abstract function execute($job);
 
     /**
      * tearDown
