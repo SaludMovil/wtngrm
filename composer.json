@@ -1,6 +1,6 @@
 {
     "name": "desyncr/wtngrm",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "Zend2 Module for Queueing/Background jobs servers",
     "type": "module",
     "license": "GPL-3.0+",
