@@ -180,7 +180,7 @@ class AbstractServiceTest extends AbstractTest
     /**
      * testGetOption
      *
-     * @covers Desyncr\Wtngrm\Service\AbstractService::getOption
+     * @covers Desyncr\Wtngrm\Service\ServiceBase::getOptions
      *
      * @return null
      */
