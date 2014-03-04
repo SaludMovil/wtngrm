@@ -1,7 +1,7 @@
 {
     "name": "desyncr/wtngrm",
-    "version": "0.1.4",
-    "description": "Zend2 Module for Qeueuing/Background jobs servers",
+    "version": "0.2.0",
+    "description": "Zend2 Module for Queueing/Background jobs servers",
     "type": "module",
     "license": "GPL-3.0+",
     "homepage": "http://github.com/desyncr/wtngrm",
@@ -22,7 +22,10 @@
         "zendframework/zendframework": "2.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "3.7.*"
+    },
+    "config": {
+        "preferred-install": "dist"
     },
     "autoload": {
         "psr-0": {

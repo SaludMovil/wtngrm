@@ -13,6 +13,9 @@
  */
 namespace Desyncr\Wtngrm\Service;
 
+use Desyncr\Wtngrm\Job\JobInterface;
+use Zend\Stdlib\AbstractOptions;
+
 /**
  * Interface ServiceInterface
  *
@@ -23,23 +26,30 @@ interface ServiceInterface
     /**
      * setOptions
      *
-     * @param Array $options Options array
+     * @param AbstractOptions $options Options array
      *
-     * @return mixed
+     * @return null
      */
-    public function setOptions($options);
+    public function setOptions(AbstractOptions $options);
 
     /**
-     * getOption
+     * getOptions
      *
-     * @param String $option Option name
-     *
-     * @return mixed
+     * @return AbstractOptions
      */
-    public function getOption($option);
+    public function getOptions();
 
     /**
-     * add
+     * addJob
+     *
+     * @param JobInterface $job Job
+     *
+     * @return null
+     */
+    public function addJob(JobInterface $job);
+
+    /**
+     * Deprecated. Use AddJob.
      *
      * @param String       $key    Job id
      * @param Object|array $job    Job object or array
