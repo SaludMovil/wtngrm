@@ -13,8 +13,6 @@
  */
 namespace Desyncr\WtngrmTest\Service;
 
-use Desyncr\Wtngrm\Job\JobBase;
-use Desyncr\Wtngrm\Options\OptionsBase;
 use Desyncr\WtngrmTest\AbstractTest;
 
 /**

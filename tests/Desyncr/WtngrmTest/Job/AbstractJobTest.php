@@ -72,18 +72,6 @@ class AbstractJobTest extends AbstractTest
     }
 
     /**
-     * testSetContructNonArray
-     *
-     * @covers Desyncr\Wtngrm\Job\AbstractJob::set
-     *
-     * @return null
-     */
-    public function testSetContructNonArray()
-    {
-        $this->markTestIncomplete();
-    }
-
-    /**
      * testGet
      *
      * @covers Desyncr\Wtngrm\Job\AbstractJob::get
