@@ -39,11 +39,6 @@ abstract class AbstractService implements
     protected $sm;
 
     /**
-     * @var array
-     */
-    protected $jobs = array();
-
-    /**
      * @var AbstractOptions Options
      */
     protected $options;

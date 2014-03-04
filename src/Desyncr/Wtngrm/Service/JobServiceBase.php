@@ -29,6 +29,11 @@ class JobServiceBase extends ServiceBase
     implements JobServiceInterface
 {
     /**
+     * @var array
+     */
+    protected $jobs = array();
+
+    /**
      * Adds a job to be processed
      *
      * @param JobInterface $job Job object

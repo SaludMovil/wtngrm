@@ -27,11 +27,11 @@ interface WorkerInterface
      * setUp
      *
      * @param ServiceLocatorInterface $sm  Service Manager
-     * @param JobInterface            $job Job object
+     * @param Object                  $job Job object
      *
      * @return mixed
      */
-    public function setUp(ServiceLocatorInterface $sm, JobInterface $job);
+    public function setUp(ServiceLocatorInterface $sm, $job);
 
     /**
      * execute

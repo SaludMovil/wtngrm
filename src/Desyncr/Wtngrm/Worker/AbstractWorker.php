@@ -44,11 +44,11 @@ abstract class AbstractWorker implements
      * setUp
      *
      * @param ServiceLocatorInterface $sm  Service Manager
-     * @param JobInterface            $job Job object
+     * @param Object                  $job Job object
      *
      * @return null
      */
-    public function setUp(ServiceLocatorInterface $sm, JobInterface $job)
+    public function setUp(ServiceLocatorInterface $sm, $job)
     {
         $this->setServiceLocator($sm);
         $this->setJob($job);
@@ -97,11 +97,11 @@ abstract class AbstractWorker implements
     /**
      * setJob
      *
-     * @param JobInterface $job Job object
+     * @param Object $job Job object
      *
      * @return null
      */
-    public function setJob(JobInterface $job)
+    public function setJob($job)
     {
         $this->job = $job;
     }
@@ -109,7 +109,7 @@ abstract class AbstractWorker implements
     /**
      * getJob
      *
-     * @return JobInterface
+     * @return Object
      */
     public function getJob()
     {
