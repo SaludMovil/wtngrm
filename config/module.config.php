@@ -13,9 +13,15 @@
  */
 return array(
     /**
+     * Wtngrm Module configuration
+     */
+    'wtngrm' => array(),
+
+    /**
      * Configure factories
      */
     'factories' => array(
-        'Desyncr\Wtngrm\Service\AbstractService' => 'Desyncr\Wtngrm\Factory\AbstractServiceFactory'
-    )
+        'Desyncr\Wtngrm\Options\OptionsBase' => 'Desyncr\Wtngrm\Factory\OptionsBaseFactory',
+        'Desyncr\Wtngrm\Service\ServiceBase' => 'Desyncr\Wtngrm\Factory\ServiceFactory'
+    ),
 );

@@ -13,6 +13,8 @@
  */
 namespace Desyncr\Wtngrm\Worker;
 
+use Desyncr\Wtngrm\Job\JobInterface;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -24,7 +26,9 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @license  https://www.gnu.org/licenses/gpl.html GPL-3.0+
  * @link     https://github.com/desyncr
  */
-abstract class AbstractWorker implements WorkerInterface
+abstract class AbstractWorker implements
+    WorkerInterface,
+    ServiceLocatorAwareInterface
 {
     /**
      * @var \Zend\ServiceManager\ServiceLocatorInterface
@@ -40,25 +44,24 @@ abstract class AbstractWorker implements WorkerInterface
      * setUp
      *
      * @param ServiceLocatorInterface $sm  Service Manager
-     * @param Object                  $job Job object
+     * @param JobInterface            $job Job object
      *
      * @return null
      */
-    public function setUp(ServiceLocatorInterface $sm, $job)
+    public function setUp(ServiceLocatorInterface $sm, JobInterface $job)
     {
-        $this->setServiceManager($sm);
+        $this->setServiceLocator($sm);
         $this->setJob($job);
     }
 
     /**
      * execute
      *
-     * @param Object                  $job Job object
-     * @param ServiceLocatorInterface $sm  Service Manager
+     * @param JobInterface $job Job object
      *
      * @return mixed
      */
-    abstract function execute($job, ServiceLocatorInterface $sm);
+    abstract function execute(JobInterface $job);
 
     /**
      * tearDown
@@ -76,7 +79,7 @@ abstract class AbstractWorker implements WorkerInterface
      *
      * @return null
      */
-    public function setServiceManager(ServiceLocatorInterface $sm)
+    public function setServiceLocator(ServiceLocatorInterface $sm)
     {
         $this->sm = $sm;
     }
@@ -86,7 +89,7 @@ abstract class AbstractWorker implements WorkerInterface
      *
      * @return ServiceLocatorInterface
      */
-    public function getServiceManager()
+    public function getServiceLocator()
     {
         return $this->sm;
     }
@@ -94,11 +97,11 @@ abstract class AbstractWorker implements WorkerInterface
     /**
      * setJob
      *
-     * @param Object $job Job object
+     * @param JobInterface $job Job object
      *
      * @return null
      */
-    public function setJob($job)
+    public function setJob(JobInterface $job)
     {
         $this->job = $job;
     }
@@ -106,7 +109,7 @@ abstract class AbstractWorker implements WorkerInterface
     /**
      * getJob
      *
-     * @return Object
+     * @return JobInterface
      */
     public function getJob()
     {

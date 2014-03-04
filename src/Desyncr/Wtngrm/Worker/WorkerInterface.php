@@ -13,6 +13,7 @@
  */
 namespace Desyncr\Wtngrm\Worker;
 
+use Desyncr\Wtngrm\Job\JobInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -26,21 +27,20 @@ interface WorkerInterface
      * setUp
      *
      * @param ServiceLocatorInterface $sm  Service Manager
-     * @param Object                  $job Job object
+     * @param JobInterface            $job Job object
      *
      * @return mixed
      */
-    public function setUp(ServiceLocatorInterface $sm, $job);
+    public function setUp(ServiceLocatorInterface $sm, JobInterface $job);
 
     /**
      * execute
      *
-     * @param Object                  $job Job object
-     * @param ServiceLocatorInterface $sm  Service Manager
+     * @param JobInterface $job Job object
      *
      * @return mixed
      */
-    public function execute($job, ServiceLocatorInterface $sm);
+    public function execute(JobInterface $job);
 
     /**
      * tearDown

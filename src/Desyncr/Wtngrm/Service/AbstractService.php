@@ -13,8 +13,12 @@
  */
 namespace Desyncr\Wtngrm\Service;
 
-use Desyncr\Wtngrm\Job\BaseJob;
+use Desyncr\Wtngrm\Job\JobBase;
 use Desyncr\Wtngrm\Job\JobInterface;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\ServiceManager;
+use Zend\Stdlib\AbstractOptions;
 
 /**
  * Class AbstractService
@@ -26,68 +30,79 @@ use Desyncr\Wtngrm\Job\JobInterface;
  * @link     https://github.com/desyncr
  */
 abstract class AbstractService implements
-    ServiceInterface
+    ServiceInterface,
+    ServiceLocatorAwareInterface
 {
+    /**
+     * @var ServiceLocatorInterface Service Manager
+     */
+    protected $sm;
+
     /**
      * @var array
      */
     protected $jobs = array();
 
     /**
-     * @var array
+     * @var AbstractOptions Options
      */
-    protected $targets = array();
+    protected $options;
+
+    /**
+     * setServiceManager
+     *
+     * @param ServiceLocatorInterface $serviceManager Service Manager
+     *
+     * @return mixed
+     */
+    public function setServiceLocator(ServiceLocatorInterface $serviceManager)
+    {
+        $this->sm = $serviceManager;
+    }
+
+    /**
+     * getServiceManager
+     *
+     * @return ServiceManager
+     */
+    public function getServiceLocator()
+    {
+        return $this->sm;
+    }
 
     /**
      * setOptions
      *
-     * @param Array $options Options array
+     * @param AbstractOptions $options Options
      *
-     * @return null
+     * @return mixed
      */
-    public function setOptions($options)
+    public function setOptions(AbstractOptions $options)
     {
-        foreach ($options as $k => $v) {
-            $this->$k = $v;
-        }
+        $this->options = $options;
     }
 
     /**
-     * getOption
+     * getOptions
      *
-     * @param String $option Option key
-     *
-     * @return null
+     * @return AbstractOptions
      */
-    public function getOption($option)
+    public function getOptions()
     {
-        if (isset($this->$option)) {
-            return $this->$option;
-        }
+        return $this->options;
     }
 
     /**
      * Adds a job to be processed
      *
-     * @param String       $key    Job key
-     * @param array|Object $job    Job object
-     * @param null         $target Target (unused)
+     * @param JobInterface $job Job object
      *
      * @return mixed
      * @throws \Exception
      */
-    public function addJob($key, $job, $target = null)
+    public function addJob(JobInterface $job)
     {
-        if (!is_object($job)) {
-            $job = new BaseJob($job);
-        }
-
-        if (!$job instanceOf JobInterface) {
-            throw new \Exception('Job must implement JobInterface');
-        }
-
-        $job->setId($key);
-        $this->jobs[] = $job;
+        array_push($this->jobs, $job);
         return $job;
     }
 
@@ -98,7 +113,11 @@ abstract class AbstractService implements
      */
     public function add($key, $job, $target = null)
     {
-        return $this->addJob($key, $job, $target);
+        if (!is_object($job)) {
+            $job = new JobBase();
+            $job->setId($key);
+        }
+        return $this->addJob($job);
     }
 
     /**

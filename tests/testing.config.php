@@ -12,13 +12,10 @@
  * @link     https://github.com/desyncr
  */
 return array(
-    'modules' => array(
-        'Desyncr\\Wtngrm',
-    ),
-    'module_listener_options' => array(
-        'config_glob_paths' => array(
-            __DIR__ . '/testing.config.php',
-        ),
-        'module_paths' => array(),
-    ),
+    'service_manager' => array(
+        'factories' => array(
+            'Desyncr\Wtngrm\Options\OptionsBase' => 'Desyncr\Wtngrm\Factory\OptionsBaseFactory',
+            'Desyncr\Wtngrm\Service\ServiceBase' => 'Desyncr\Wtngrm\Factory\ServiceFactory'
+        )
+    )
 );
