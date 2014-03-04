@@ -24,13 +24,5 @@ namespace Desyncr\Wtngrm\Service;
  */
 class ServiceBase extends AbstractService
 {
-    /**
-     * dispatch
-     *
-     * @return mixed
-     */
-    public function dispatch()
-    {
-    }
 }
  

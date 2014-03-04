@@ -13,6 +13,7 @@
  */
 namespace Desyncr\WtngrmTest\Service;
 
+use Desyncr\Wtngrm\Service\JobServiceBase;
 use Desyncr\WtngrmTest\AbstractTest;
 
 /**
@@ -29,7 +30,7 @@ class AbstractServiceTest extends AbstractTest
     /**
      * getObject
      *
-     * @return \Desyncr\Wtngrm\Service\AbstractService
+     * @return \Desyncr\Wtngrm\Service\JobServiceBase
      */
     public function getObject()
     {
@@ -37,8 +38,8 @@ class AbstractServiceTest extends AbstractTest
             return $this->object;
         }
 
-        $object = $this->getMockForAbstractClass(
-            'Desyncr\Wtngrm\Service\AbstractService'
+        $object = $this->getMock(
+            'Desyncr\Wtngrm\Service\JobServiceBase'
         );
 
         $object->expects($this->any())
@@ -73,7 +74,8 @@ class AbstractServiceTest extends AbstractTest
             'timeout' => 10,
         );
 
-        $this->assertNull($this->getObject()->getOptions());
+        $object = new JobServiceBase();
+        $this->assertNull($object->getOptions());
 
         $optionBaseMock = $this->getOptionBaseMock(
             array('setTimeout', 'getTimeout')
@@ -82,18 +84,18 @@ class AbstractServiceTest extends AbstractTest
             ->method('getTimeout')
             ->will($this->returnValue($options['timeout']));
 
-        $this->getObject()->setOptions(
+        $object->setOptions(
             $optionBaseMock
         );
         $this->assertInstanceOf(
             'Desyncr\Wtngrm\Options\OptionsBase',
-            $this->getObject()->getOptions()
+            $object->getOptions()
         );
-        $this->getObject()->getOptions()->setFromArray($options);
+        $object->getOptions()->setFromArray($options);
 
         $this->assertEquals(
             $options['timeout'],
-            $this->getObject()->getOptions()->get('timeout')
+            $object->getOptions()->get('timeout')
         );
     }
 
@@ -159,13 +161,14 @@ class AbstractServiceTest extends AbstractTest
             ->will($this->returnValue($options['servers']));
         $optionBaseMock->setFromArray($options);
 
-        $this->getObject()->setOptions($optionBaseMock);
+        $object = new JobServiceBase();
+        $object->setOptions($optionBaseMock);
 
         $this->assertInstanceOf(
             'Desyncr\Wtngrm\Options\OptionsBase',
-            $this->getObject()->getOptions()
+            $object->getOptions()
         );
-        $servers = $this->getObject()->getOptions()->getServers();
+        $servers = $object->getOptions()->getServers();
         $this->assertEquals(
             $options['servers']['frontend'],
             $servers['frontend']
@@ -202,16 +205,17 @@ class AbstractServiceTest extends AbstractTest
             ->will($this->returnValue($options['servers']));
         $optionBaseMock->setFromArray($options);
 
-        $this->getObject()->setOptions($optionBaseMock);
+        $object = new JobServiceBase();
+        $object->setOptions($optionBaseMock);
 
         $this->assertInstanceOf(
             'Desyncr\Wtngrm\Options\OptionsBase',
-            $this->getObject()->getOptions()
+            $object->getOptions()
         );
-        $this->getObject()->getOptions()->setFromArray($options);
+        $object->getOptions()->setFromArray($options);
 
         $this->assertEquals(
-            $this->getObject()->getOptions()->getServers(),
+            $object->getOptions()->getServers(),
             $options['servers']
         );
     }
@@ -219,7 +223,7 @@ class AbstractServiceTest extends AbstractTest
     /**
      * testAdd
      *
-     * @covers Desyncr\Wtngrm\Service\AbstractService::add
+     * @covers Desyncr\Wtngrm\Service\JobServiceBase::add
      *
      * @return null
      */
@@ -227,7 +231,9 @@ class AbstractServiceTest extends AbstractTest
     {
         $key = 'job.service.key';
         $job = array();
-        $jobObject = $this->getObject()->add($key, $job);
+
+        $object = new JobServiceBase();
+        $jobObject = $object->add($key, $job);
 
         $this->assertEquals('Desyncr\Wtngrm\Job\JobBase', get_class($jobObject));
         $this->assertEquals($key, $jobObject->getId());
@@ -236,7 +242,7 @@ class AbstractServiceTest extends AbstractTest
     /**
      * testAddInvalidJob
      *
-     * @covers Desyncr\Wtngrm\Service\AbstractService::add
+     * @covers Desyncr\Wtngrm\Service\JobServiceBase::add
      *
      * @return null
      */
@@ -245,13 +251,14 @@ class AbstractServiceTest extends AbstractTest
         $key = 'job.service.key';
         $job = new \StdClass;
         $this->setExpectedException('Exception');
-        $this->getObject()->add($key, $job);
+        $object = new JobServiceBase();
+        $object->add($key, $job);
     }
 
     /**
      * testDispatch
      *
-     * @covers Desyncr\Wtngrm\Service\AbstractService::dispatch
+     * @covers Desyncr\Wtngrm\Service\JobServiceBase::dispatch
      *
      * @return null
      */
@@ -271,7 +278,6 @@ class AbstractServiceTest extends AbstractTest
      */
     public function testServiceFactory()
     {
-
         $serviceManager = $this->getServiceManager();
         $service = $serviceManager->get('Desyncr\Wtngrm\Service\ServiceBase');
         $this->assertInstanceOf(
